@@ -12,7 +12,7 @@ const protocol = "http"
 app.use(morgan('short'))
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('ok');
+    res.json({msg: 'ok'});
 })
 
 app.get('/health', (req: Request, res: Response) => {

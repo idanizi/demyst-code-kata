@@ -12,5 +12,8 @@ RUN pnpm install
 # Copy the rest of the application code to the container
 COPY . .
 
+# build for production run
+RUN pnpm build
+
 # Start the application
 CMD ["pnpm", "start"]
