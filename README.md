@@ -13,6 +13,56 @@ See supersize reference here: https://github.com/DemystData/code-kata
 Hello there 👋, I hope you'd like this implementation of your code-kata.
 For any questions of "How to run" etc. - please don't hesitate to give me a call/email.
 
+### Note: **"Start Application Flow"**
+I understand for the simplicity of the submission you wanted the
+candidates to avoid having a "Login" flow, so instead:
+
+```mermaid
+sequenceDiagram
+  Actor User as User
+  participant FE as Frontend
+  participant BE as Backend
+
+  User ->> FE: Start Application
+
+  FE ->> BE: Initiate Application
+  BE ->> FE: Initiate Complete
+```
+
+Usually you would expect:
+
+```mermaid
+sequenceDiagram
+    Actor User as User
+    participant FE as Frontend
+    participant BE as Backend
+    participant IDP as Identity Provider (Optional)
+
+    alt Login
+        User ->> FE: Login
+        FE ->> BE: Login
+        BE ->> IDP: Get Session
+        IDP ->> IDP: SSO Validation
+        IDP ->> BE: Session ID
+        BE ->> FE: Cookie / JWT
+    else Signup
+        User ->> FE: Signup
+        FE ->> BE: Signup
+        BE ->> IDP: Create new User
+        IDP ->> User: SSO Creation for service
+        User ->> IDP: Submit SSO creation for service
+        IDP ->> BE: Session ID
+        BE ->> FE: Cookie / JWT
+    end
+```
+
+So I appreciate that you didn't require to implement that. Though I wanted to let you
+know that I have experience in implementing this kind of flow, in different complexity
+levels.
+
+For the sake of this simplicity of this home assignment - I will do it exactly as
+you required.
+
 ## Getting Started:
 
 ### Prerequisites:
