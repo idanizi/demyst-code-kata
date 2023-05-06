@@ -1,6 +1,7 @@
 import express, {Express, Request, Response} from "express";
 import dotenv from "dotenv";
 import morgan from 'morgan'
+import router from "./routes";
 
 dotenv.config()
 
@@ -9,15 +10,11 @@ const port = process.env.PORT || 8080;
 const host = "localhost";
 const protocol = "http"
 
+// init middlewares
 app.use(morgan('short'))
 
-app.get('/', (req: Request, res: Response) => {
-    res.json({msg: 'ok'});
-})
-
-app.get('/health', (req: Request, res: Response) => {
-    res.sendStatus(200)
-});
+// init routes
+app.use(router)
 
 app.listen(port, () => {
     console.log(`🚀 Server is running at ${protocol}://${host}:${port}`)
