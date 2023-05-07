@@ -1,7 +1,7 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {Login} from "./Login.tsx";
+import {Login} from "./pages/Login.tsx";
 import {StoreProvider} from "./StoreContext.tsx";
-import {Balance} from "./Balance.tsx";
+import {Balance} from "./pages/Balance.tsx";
 
 const router = createBrowserRouter([
     {

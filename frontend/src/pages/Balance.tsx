@@ -1,6 +1,7 @@
-import React, {useContext, useState} from "react";
-import {actions, StoreContext} from "./StoreContext.tsx";
+import React, {useContext, useMemo, useState} from "react";
+import {actions, StoreContext} from "../StoreContext.tsx";
 import {Navigate} from "react-router-dom";
+import {Table} from "../components/Table.tsx";
 
 type RequestLoanDto = {
     balanceSheet: any[],
@@ -10,6 +11,13 @@ type RequestLoanDto = {
 export const Balance: React.FC = () => {
     const {state, dispatch} = useContext(StoreContext)
     const [amount, setAmount] = useState('')
+    const columns = useMemo(() => [
+        {Header: 'Year', accessor: 'year'},
+        {Header: 'Month', accessor: 'month'},
+        {Header: 'Asset Value', accessor: 'assetsValue'},
+        {Header: 'Profit Or Loss', accessor: 'profitOrLoss'},
+    ], [])
+
     const fetchBalance = () => {
         fetch("/api/balance")
             .then(async (response) => {
@@ -93,27 +101,7 @@ export const Balance: React.FC = () => {
                 </button>
             </div>
             <div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Month</th>
-                        <th>Assets Values</th>
-                        <th>Profit Or Loss</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {state.balances.map((balance, idx) => (
-                        <tr>
-                            <td key={idx}>{balance.year}</td>
-                            <td key={idx}>{balance.month}</td>
-                            <td key={idx}>{balance.assetsValue}</td>
-                            <td key={idx}>{balance.profitOrLoss}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
-
+                <Table columns={columns} data={state.balances} />
             </div>
         </>
     )

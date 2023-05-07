@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {StoreContext, actions} from "./StoreContext.tsx";
+import {StoreContext, actions} from "../StoreContext.tsx";
 import {Navigate} from "react-router-dom";
 
 export const Login: React.FC = () => {
