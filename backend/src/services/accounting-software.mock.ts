@@ -1,6 +1,6 @@
 import {BalanceSheet, IAccountingSoftware} from "@src/types";
 
-const balances = [
+export const balances = [
     {
         "year": 2020,
         "month": 12,

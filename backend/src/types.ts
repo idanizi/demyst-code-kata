@@ -16,5 +16,6 @@ export type Balance = {
 export type BalanceSheet = Balance[]
 
 export type LoanRequest = {
-
+    balanceSheet: BalanceSheet
+    preAssessment: number
 }
