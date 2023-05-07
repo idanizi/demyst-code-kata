@@ -70,10 +70,6 @@ you required.
 - pnpm
   - If not installed: `npm i -g pnpm`
 
-`// todo: explain how to clone/download and run`
-
-`// todo: live demo (?)`
-
 ## Development:
 
 ```shell
@@ -101,8 +97,6 @@ a crash page in the browser. Hot-Module-Reloading (HMR) is supported.
 
 ## Production:
 
-`// todo: production instructions`
-
 ### Natively on Linux/MacOS machines:
 1. Make sure all prerequisites installed on the production machine
 2. `cd backend && pnpm start`
@@ -115,14 +109,6 @@ a crash page in the browser. Hot-Module-Reloading (HMR) is supported.
 ### Using Docker:
 1. Make sure you have docker installed
 2. `docker-compose up`
-
-### Deployment:
-
-`// todo: deployment instructions`
-
-### Troubleshooting:
-
-`// todo: troubleshooting instructions`
 
 ## Tech-stack, Architecture & Design:
 Classic Typescript-NoteJS + Express + React tech-stack:
