@@ -11,7 +11,8 @@ const host = "localhost";
 const protocol = "http"
 
 // init middlewares
-app.use(morgan('short'))
+app.use(express.json())
+app.use(morgan('dev'))
 
 // init routes
 app.use(router)

@@ -2,6 +2,11 @@ import React, {useContext, useState} from "react";
 import {actions, StoreContext} from "./StoreContext.tsx";
 import {Navigate} from "react-router-dom";
 
+type RequestLoanDto = {
+    balanceSheet: any[],
+    loanAmount: number
+}
+
 export const Balance: React.FC = () => {
     const {state, dispatch} = useContext(StoreContext)
     const [amount, setAmount] = useState('')
@@ -22,8 +27,38 @@ export const Balance: React.FC = () => {
             .catch(console.error)
     }
 
-    const requestLoan = () => {
-        console.log(amount); // todo: validate input value - number only
+    const requestLoan = async () => {
+        const isValid = /\d+/.test(amount)
+        if (!isValid) {
+            // todo: make error comes in a nicer way
+            window.alert(`Only numbers allowed. Your input: ${amount}`)
+            return
+        }
+
+        const payload: RequestLoanDto = {
+            loanAmount: Number(amount),
+            balanceSheet: state.balances,
+        }
+
+        try {
+            // todo: add spinner
+            const response = await fetch('/api/loan_request', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            })
+            if (!response.ok) {
+                console.error('response not ok:', response.status, response.statusText)
+                return
+            }
+
+            const {answer, assessment} = await response.json()
+            window.alert(`The decision is: answer: ${answer}, assessment score: ${assessment}`)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     if (!state.isLoggedIn) {
@@ -52,7 +87,7 @@ export const Balance: React.FC = () => {
                 <label>
                     Request Loan:
                 </label>
-                <input type={"text"} placeholder={"Amount"} pattern={"\d+"} value={amount} onChange={e => setAmount(e.target.value)}/>
+                <input type={"text"} placeholder={"Amount"} value={amount} onChange={e => setAmount(e.target.value)}/>
                 <button onClick={requestLoan}>
                     Submit
                 </button>

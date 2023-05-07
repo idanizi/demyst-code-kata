@@ -35,10 +35,11 @@ class DecisionController {
     }
 
     submitLoanRequest = (req: Request, res: Response) => {
+        console.log('req.body:', req.body)
         const {balanceSheet, loanAmount} = req.body; // todo: verify request payload
         const loanRequest = applyRulesToSummariseLoanRequest(balanceSheet, loanAmount)
-        const data = this.decisionEngine.getDecision(loanRequest)
-        res.json({data});
+        const answer = this.decisionEngine.getDecision(loanRequest)
+        res.json({answer, assessment: loanRequest.preAssessment});
     }
 
 
