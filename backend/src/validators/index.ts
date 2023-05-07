@@ -1,1 +1,1 @@
-export {default as createLoanRequestValidator} from "./loadn-request-validator";
+export {default as createLoanRequestValidator} from "./loan-request-validator";
