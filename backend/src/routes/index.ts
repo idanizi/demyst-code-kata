@@ -2,7 +2,6 @@ import {Router} from "express";
 import InitController from "@src/controllers/init-controller";
 import {BalanceController, DecisionController} from "@src/controllers";
 import {createLoanRequestValidator} from "@src/validators";
-import {body} from "express-validator";
 
 const router = Router();
 
