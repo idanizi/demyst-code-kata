@@ -1,29 +1,27 @@
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import './App.scss'
+import {Login} from "./Login.tsx";
+import {StoreProvider} from "./StoreContext.tsx";
+import {Balance} from "./Balance.tsx";
 
-function App() {
-
-    const fetchRoot = () => {
-        fetch('/api').then(async (response) => {
-            if (response.ok) {
-                try {
-                    await response.json()
-                } catch (err) {
-                    console.error(err)
-                }
-                return
-            }
-
-            console.error("response not ok:", response.status, response.statusText)
-        })
+const router = createBrowserRouter([
+    {
+        errorElement: <div>Oops... Something went wrong!</div>
+    },
+    {
+        path: '/login',
+        Component: Login
+    },
+    {
+        path: '/',
+        Component: Balance,
     }
+])
 
+export function App() {
     return (
-        <>
-            <button onClick={fetchRoot}>
-                fetch root
-            </button>
-        </>
+        <StoreProvider>
+            <RouterProvider router={router}/>
+        </StoreProvider>
     )
 }
-
-export default App
