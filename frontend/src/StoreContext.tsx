@@ -5,9 +5,16 @@ export const actions = {
     SET_BALANCES: 'SET_BALANCES',
 }
 
+export type Balance = {
+    year: number
+    month: number
+    profitOrLoss: number
+    assetsValue: number
+}
+
 type State = {
     isLoggedIn: boolean
-    balances: any[]
+    balances: Balance[]
 }
 
 type Action = {

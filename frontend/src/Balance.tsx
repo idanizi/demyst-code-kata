@@ -93,9 +93,27 @@ export const Balance: React.FC = () => {
                 </button>
             </div>
             <div>
-                <pre>
-                    {JSON.stringify(state.balances, null, 2)}
-                </pre>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Assets Values</th>
+                        <th>Profit Or Loss</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {state.balances.map((balance, idx) => (
+                        <tr>
+                            <td key={idx}>{balance.year}</td>
+                            <td key={idx}>{balance.month}</td>
+                            <td key={idx}>{balance.assetsValue}</td>
+                            <td key={idx}>{balance.profitOrLoss}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+
             </div>
         </>
     )
