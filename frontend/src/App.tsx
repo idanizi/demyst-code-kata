@@ -1,5 +1,4 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import './App.scss'
 import {Login} from "./Login.tsx";
 import {StoreProvider} from "./StoreContext.tsx";
 import {Balance} from "./Balance.tsx";
