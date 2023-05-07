@@ -72,9 +72,15 @@ you required.
 
 ## Development:
 
+Both frontend and backend work with pnpm:
+1. open 2 terminal sessions for `frontend/` and `backend/` folders
+2. at each folder run the command:
 ```shell
 pnpm dev
 ```
+
+By default, backend will run on port `8080`
+and frontend will run on port `3000`.
 
 ### Debugging:
 
