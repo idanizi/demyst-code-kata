@@ -3,7 +3,6 @@ import {actions, StoreContext} from "../StoreContext.tsx";
 import {Navigate} from "react-router-dom";
 import {Table} from "../components/Table.tsx";
 import {toast} from "react-toastify";
-import {flushSync} from "react-dom";
 
 type RequestLoanDto = {
     balanceSheet: any[],
