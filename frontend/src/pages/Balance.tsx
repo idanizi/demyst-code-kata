@@ -2,6 +2,8 @@ import React, {useContext, useMemo, useState} from "react";
 import {actions, StoreContext} from "../StoreContext.tsx";
 import {Navigate} from "react-router-dom";
 import {Table} from "../components/Table.tsx";
+import {toast} from "react-toastify";
+import {flushSync} from "react-dom";
 
 type RequestLoanDto = {
     balanceSheet: any[],
@@ -18,28 +20,42 @@ export const Balance: React.FC = () => {
         {Header: 'Profit Or Loss', accessor: 'profitOrLoss'},
     ], [])
 
-    const fetchBalance = () => {
-        fetch("/api/balance")
-            .then(async (response) => {
-                if (!response.ok) {
-                    console.error('response not ok', response.status, response.statusText);
-                    return
-                }
-                try {
-                    const {data} = await response.json();
-                    dispatch({type: actions.SET_BALANCES, payload: data})
-                } catch (err) {
-                    console.error(err)
-                }
+    const fetchBalance = async () => {
+        const toastId = toast.loading("Getting balances...")
+        try {
+            const response = await fetch("/api/balance")
+
+            // The response is very fast and I want you to see the animation here... :)
+            await new Promise(res => setTimeout(res, 1000))
+
+            if (!response.ok) {
+                toast.update(toastId, {
+                    render: 'Got bad response from the server. Check error log to troubleshoot.',
+                    type: 'error',
+                    isLoading: false,
+                    closeOnClick: true,
+                })
+                console.error('response not ok', response.status, response.statusText);
+                return
+            }
+            const {data} = await response.json();
+            dispatch({type: actions.SET_BALANCES, payload: data})
+            toast.update(toastId, {type: toast.TYPE.SUCCESS, isLoading: false, autoClose: 5000})
+        } catch (err) {
+            toast.update(toastId, {
+                render: 'Cannot get balances from server. Is server down?',
+                type: 'error',
+                isLoading: false,
+                closeOnClick: true,
             })
-            .catch(console.error)
+            console.error(err)
+        }
     }
 
     const requestLoan = async () => {
         const isValid = /\d+/.test(amount)
         if (!isValid) {
-            // todo: make error comes in a nicer way
-            window.alert(`Only numbers allowed. Your input: ${amount}`)
+            toast(`Only numbers allowed. Your input: ${amount}`, {type: 'warning'})
             return
         }
 
@@ -48,8 +64,8 @@ export const Balance: React.FC = () => {
             balanceSheet: state.balances,
         }
 
+        const toastId = toast.loading("Submitting loan request")
         try {
-            // todo: add spinner
             const response = await fetch('/api/loan_request', {
                 method: 'POST',
                 headers: {
@@ -58,13 +74,26 @@ export const Balance: React.FC = () => {
                 body: JSON.stringify(payload)
             })
             if (!response.ok) {
+                toast.update(toastId, {
+                    render: 'Got bad response from the server. Check error log to troubleshoot.',
+                    type: 'error',
+                    isLoading: false,
+                    closeOnClick: true,
+                })
                 console.error('response not ok:', response.status, response.statusText)
                 return
             }
 
             const {answer, assessment} = await response.json()
-            window.alert(`The decision is: answer: ${answer}, assessment score: ${assessment}`)
+            const msg = `The decision is: answer: ${answer}, assessment score: ${assessment}`;
+            toast.update(toastId, {render: msg, type: toast.TYPE.SUCCESS, isLoading: false, autoClose: 5000})
         } catch (err) {
+            toast.update(toastId, {
+                render: 'Cannot get balances from server. Is server down?',
+                type: 'error',
+                isLoading: false,
+                closeOnClick: true,
+            })
             console.error(err)
         }
     }
@@ -101,7 +130,7 @@ export const Balance: React.FC = () => {
                 </button>
             </div>
             <div>
-                <Table columns={columns} data={state.balances} />
+                <Table columns={columns} data={state.balances}/>
             </div>
         </>
     )

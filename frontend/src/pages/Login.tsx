@@ -1,33 +1,39 @@
 import React, {useContext} from "react";
 import {StoreContext, actions} from "../StoreContext.tsx";
 import {Navigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 export const Login: React.FC = () => {
     const {state, dispatch} = useContext(StoreContext)
 
-    const fetchRoot = () => {
-        fetch('/api/init')
-            .then(async (response) => {
+    const fetchRoot = async () => {
+        const toastId = toast.loading("Init Application")
+        try {
+            const response = await fetch('/api/init')
+
+            // The response is very fast and I want you to see the animation here... :)
+            await new Promise(res => setTimeout(res, 200))
+
             if (!response.ok) {
+                const msg = "Got bad response from the server. Check error log to troubleshoot.";
+                toast.update(toastId, {render: msg, type: toast.TYPE.ERROR, isLoading: false, closeOnClick: true})
                 console.error("response not ok:", response.status, response.statusText)
                 return
             }
 
-            try {
-                const {msg} = await response.json()
-                window.alert(msg)
-                console.log("set is login true")
-                dispatch({type: actions.LOGGED})
-            } catch (err) {
-                console.error(err)
-            }
-        })
-            .catch(console.error)
+            const {msg} = await response.json()
+            toast.update(toastId, {render: msg, isLoading: false, type: toast.TYPE.SUCCESS, autoClose: 5000})
+            dispatch({type: actions.LOGGED})
+        } catch (err) {
+            const msg = "Cannot get balances from server. Is server down?";
+            toast.update(toastId, {render: msg, type: toast.TYPE.ERROR, isLoading: false, closeOnClick: true})
+            console.error(err)
+        }
     }
 
     if (state.isLoggedIn) {
         return (
-            <Navigate to={'/'} />
+            <Navigate to={'/'}/>
         )
     }
 
