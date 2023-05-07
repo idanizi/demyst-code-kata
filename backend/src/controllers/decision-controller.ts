@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {BalanceSheet, IDecisionEngine, LoanRequest} from "@src/types";
 import {DecisionEngine} from "@src/services";
 import dayjs from "dayjs"
+import {matchedData, validationResult} from "express-validator";
 
 
 export const applyRulesToSummariseLoanRequest = (balances: BalanceSheet, loanAmount: number): LoanRequest => {
@@ -35,8 +36,12 @@ class DecisionController {
     }
 
     submitLoanRequest = (req: Request, res: Response) => {
-        console.log('req.body:', req.body)
-        const {balanceSheet, loanAmount} = req.body; // todo: verify request payload
+        let errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            res.status(400).json({msg: 'Bad request. Fix the following errors', errors: errors.array()})
+            return
+        }
+        const {balanceSheet, loanAmount} = matchedData(req);
         const loanRequest = applyRulesToSummariseLoanRequest(balanceSheet, loanAmount)
         const answer = this.decisionEngine.getDecision(loanRequest)
         res.json({answer, assessment: loanRequest.preAssessment});
