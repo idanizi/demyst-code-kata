@@ -28,7 +28,12 @@ export const balances = [
 ];
 
 class AccountingSoftwareMock implements IAccountingSoftware {
-    getBalanceSheet = (): BalanceSheet => {
+    getBalanceSheet = async (): Promise<BalanceSheet> => {
+        console.log(`[AccountingSoftwareMock] get balance sheet`)
+
+        // The response is very fast and I want you to see the animation here... :)
+        await new Promise(res => setTimeout(res, 500))
+
         console.log(`[AccountingSoftwareMock] returning balance sheet with ${balances.length} balances.`)
         return balances
     }

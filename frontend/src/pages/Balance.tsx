@@ -24,9 +24,6 @@ export const Balance: React.FC = () => {
         try {
             const response = await fetch("/api/balance")
 
-            // The response is very fast and I want you to see the animation here... :)
-            await new Promise(res => setTimeout(res, 1000))
-
             if (!response.ok) {
                 toast.update(toastId, {
                     render: 'Got bad response from the server. Check error log to troubleshoot.',

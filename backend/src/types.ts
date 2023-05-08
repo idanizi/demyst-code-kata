@@ -1,9 +1,9 @@
 export interface IAccountingSoftware {
-    getBalanceSheet: () => BalanceSheet
+    getBalanceSheet: () => Promise<BalanceSheet>
 }
 
 export interface IDecisionEngine {
-    getDecision: (req: LoanRequest) => boolean
+    getDecision: (req: LoanRequest) => Promise<boolean>
 }
 
 export type Balance = {

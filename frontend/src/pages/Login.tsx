@@ -11,9 +11,6 @@ export const Login: React.FC = () => {
         try {
             const response = await fetch('/api/init')
 
-            // The response is very fast and I want you to see the animation here... :)
-            await new Promise(res => setTimeout(res, 200))
-
             if (!response.ok) {
                 const msg = "Got bad response from the server. Check error log to troubleshoot.";
                 toast.update(toastId, {render: msg, type: toast.TYPE.ERROR, isLoading: false, closeOnClick: true})
