@@ -123,7 +123,7 @@ Classic Typescript-NoteJS + Express + React tech-stack:
   - Framework: React ⚛️
   - Lang: Typescript 
   - Styling: Scss 🎨
-  - Tests: Jest ⚡️ + React Testing Library 🐙
+  - Tests: Vitest 🌻⚡️ + React Testing Library 🐙
 - Backend:
   - Framework: Express
   - Lang: Typescript

@@ -35,7 +35,7 @@ class DecisionController {
     constructor(private decisionEngine: IDecisionEngine) {
     }
 
-    submitLoanRequest = (req: Request, res: Response) => {
+    submitLoanRequest = async (req: Request, res: Response) => {
         let errors = validationResult(req)
         if (!errors.isEmpty()) {
             res.status(400).json({msg: 'Bad request. Fix the following errors', errors: errors.array()})
@@ -43,7 +43,7 @@ class DecisionController {
         }
         const {balanceSheet, loanAmount} = matchedData(req);
         const loanRequest = applyRulesToSummariseLoanRequest(balanceSheet, loanAmount)
-        const answer = this.decisionEngine.getDecision(loanRequest)
+        const answer = await this.decisionEngine.getDecision(loanRequest)
         res.json({answer, assessment: loanRequest.preAssessment});
     }
 

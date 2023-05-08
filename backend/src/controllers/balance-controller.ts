@@ -6,8 +6,8 @@ class BalanceController {
     constructor(private accountingSoftware: IAccountingSoftware) {
     }
 
-    getBalanceSheet = (req: Request, res: Response) => {
-        const data = this.accountingSoftware.getBalanceSheet();
+    getBalanceSheet = async (req: Request, res: Response) => {
+        const data = await this.accountingSoftware.getBalanceSheet();
         res.json({data})
     }
 }
