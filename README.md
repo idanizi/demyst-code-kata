@@ -136,7 +136,7 @@ a crash page in the browser. Hot-Module-Reloading (HMR) is supported.
 > Note: In case you have older docker-compose build of this project (already run `docker-compose up` once and want to
 > a try newer version), run `docker-compose build --no-cache` first.
 
-## Tech-stack, Architecture & Design:
+## Tech-stack
 
 Classic Typescript-NoteJS + Express + React tech-stack:
 
@@ -151,14 +151,18 @@ Classic Typescript-NoteJS + Express + React tech-stack:
   - Lang: Typescript 🟦
   - Tests: Jets + Supertest 🦸‍️
 
+## Architecture & Design:
+
+When running with docker:
+
 ```mermaid
 graph LR
-    subgraph Frontend Container 
-        NGINX -- static serving :3000 --> Frontend
-    end
+  subgraph Frontend Container
+    NGINX -- static serving :3000 --> Frontend
+  end
   Frontend -- /api calls :8080 --> Backend;
-  subgraph Backend Container 
-      Backend
+  subgraph Backend Container
+    Backend
   end
   
   subgraph Mocks
