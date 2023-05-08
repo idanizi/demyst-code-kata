@@ -1,7 +1,7 @@
 # demyst-code-kata
-_Demyst_ Home Assignment for **Senior/Principal Software Engineer** role - Code Kata - for "Loan System" exercise
+_Demyst_ Home Assignment for **Senior/Principal Software Engineer** role - Code Kata - for "Loan System" exercise.
 
-See supersize reference here: https://github.com/DemystData/code-kata
+See assignment reference here: https://github.com/DemystData/code-kata
 
 ## Author
 **Idan Izicovich** <idanizi@gmail.com>
@@ -66,15 +66,22 @@ you required.
 ## Getting Started:
 
 ### Prerequisites:
+
 - Node v18.16.0+ (using nvm is recommended)
+  - if using nvm, in every folder I've added `.nvmrc` to fix the version. So you can use `nvm use` to get the exact
+    required version.
 - pnpm
   - If not installed: `npm i -g pnpm`
 
 ## Development:
 
+### Run In Development Mode:
+
 Both frontend and backend work with pnpm:
+
 1. open 2 terminal sessions for `frontend/` and `backend/` folders
 2. at each folder run the command:
+
 ```shell
 pnpm dev
 ```
@@ -82,11 +89,20 @@ pnpm dev
 By default, backend will run on port `8080`
 and frontend will run on port `3000`.
 
+### Running Tests:
+
+```shell
+pnpm test
+```
+
+at each folder (`frontend/` or `backend/`) will run the unit tests & integration tests.
+
 ### Debugging:
 
 #### Backend:
+
 Sourcemap is supported in development using nodemon.
-When running at production mode sourcemaps is being loaded as well - 
+When running at production mode sourcemaps is being loaded as well -
 so any errors that occur during run are being logged and mapped to their
 typescript source-code reference.
 
@@ -113,21 +129,27 @@ a crash page in the browser. Hot-Module-Reloading (HMR) is supported.
 > to go hi-scale with it.
 
 ### Using Docker:
+
 1. Make sure you have docker installed
 2. `docker-compose up`
 
+> Note: In case you have older docker-compose build of this project (already run `docker-compose up` once and want to
+> a try newer version), run `docker-compose build --no-cache` first.
+
 ## Tech-stack, Architecture & Design:
+
 Classic Typescript-NoteJS + Express + React tech-stack:
+
 - Frontend:
   - Bundler: Vite ⚡️
   - Framework: React ⚛️
-  - Lang: Typescript 
+  - Lang: Typescript 🟦
   - Styling: Scss 🎨
   - Tests: Vitest 🌻⚡️ + React Testing Library 🐙
 - Backend:
-  - Framework: Express
-  - Lang: Typescript
-  - Tests: Jets + Supertest
+  - Framework: NodeJS Express 🟩
+  - Lang: Typescript 🟦
+  - Tests: Jets + Supertest 🦸‍️
 
 ```mermaid
 graph LR
