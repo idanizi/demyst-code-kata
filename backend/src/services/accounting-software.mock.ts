@@ -32,7 +32,7 @@ class AccountingSoftwareMock implements IAccountingSoftware {
         console.log(`[AccountingSoftwareMock] get balance sheet`)
 
         // The response is very fast and I want you to see the animation here... :)
-        await new Promise(res => setTimeout(res, 500))
+        await new Promise(res => setTimeout(res, 1_000))
 
         console.log(`[AccountingSoftwareMock] returning balance sheet with ${balances.length} balances.`)
         return balances

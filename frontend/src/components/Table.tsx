@@ -1,10 +1,12 @@
 import React from "react";
 import {TableOptions, useTable} from "react-table";
 
-type TableProps = TableOptions<any>
+type TableProps = TableOptions<any> & { className?: string }
 
 export const Table: React.FC<TableProps> = (props) => {
     const tableInstance = useTable(props)
+    const {className} = props
+
 
     const {
         getTableProps,
@@ -15,7 +17,7 @@ export const Table: React.FC<TableProps> = (props) => {
     } = tableInstance
 
     return (
-        <table {...getTableProps()}>
+        <table className={className ?? ""} {...getTableProps()}>
             <thead>
             {headerGroups.map(headerGroup => (
                 <tr {...headerGroup.getHeaderGroupProps()}>

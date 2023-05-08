@@ -113,20 +113,23 @@ export const Balance: React.FC = () => {
 
     return (
         <>
-            <h1>
+            <h1 className={'animate__animated animate__rubberBand'}>
                 Balance
             </h1>
-            <div>
-                <label>
-                    Request Loan:
-                </label>
-                <input type={"text"} placeholder={"Amount"} value={amount} onChange={e => setAmount(e.target.value)}/>
-                <button onClick={requestLoan}>
-                    Submit
-                </button>
-            </div>
-            <div>
-                <Table columns={columns} data={state.balances}/>
+            <div className={'animate__animated animate__fadeInUp'}>
+                <div className={'space-between'}>
+                    <label>
+                        Request Loan:
+                    </label>
+                    <input type={"text"} placeholder={"Amount"} value={amount}
+                           onChange={e => setAmount(e.target.value)}/>
+                    <button onClick={requestLoan}>
+                        Submit
+                    </button>
+                </div>
+                <div>
+                    <Table columns={columns} data={state.balances}/>
+                </div>
             </div>
         </>
     )

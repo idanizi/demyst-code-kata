@@ -4,6 +4,9 @@ import {StoreProvider} from "./StoreContext.tsx";
 import {Balance} from "./pages/Balance.tsx";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import './App.scss';
+import 'animate.css'
+import {Page} from "./components/Page.tsx";
 
 const router = createBrowserRouter([
     {
@@ -22,8 +25,10 @@ const router = createBrowserRouter([
 export function App() {
     return (
         <StoreProvider>
-            <RouterProvider router={router}/>
-            <ToastContainer />
+            <Page>
+                <RouterProvider router={router}/>
+            </Page>
+            <ToastContainer/>
         </StoreProvider>
     )
 }

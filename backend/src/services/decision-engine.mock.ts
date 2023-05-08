@@ -6,7 +6,7 @@ class DecisionEngineMock implements IDecisionEngine {
 
         console.log("[DecisionEngineMock] got loan request:", req);
         // The response is very fast and I want you to see the animation here... :)
-        await new Promise(res => setTimeout(res, 200))
+        await new Promise(res => setTimeout(res, 2_000))
 
         console.log("[DecisionEngineMock] returning decision:", decision);
         return decision;
